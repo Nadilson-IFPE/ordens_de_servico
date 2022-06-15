@@ -1,4 +1,4 @@
-package com.nadilson.os.controllers;
+package com.nadilson.os.resources;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,24 +13,24 @@ import com.nadilson.os.services.TecnicoService;
 
 @RestController
 @RequestMapping(value = "/tecnicos")
-public class TecnicoController {
-	
+public class TecnicoResource {
+
 	@Autowired
 	private TecnicoService tecnicoService;
-	
+
 	@GetMapping(value = "/{id}")
 	// Retornar a Entidade para o usuário é falha de segurança:
-	//public ResponseEntity<Tecnico> findById(@PathVariable Integer id) {
+	// public ResponseEntity<Tecnico> findById(@PathVariable Integer id) {
 	// Código acima trocado por:
 	public ResponseEntity<TecnicoDTO> findById(@PathVariable Integer id) {
 		Tecnico obj = tecnicoService.findById(id);
-		
+
 		// Resolvendo falha de segurança descrita acima
 		// return ResponseEntity.ok().body(obj);
-		
+
 		// Conversão para evitar a falha de segurança:
 		TecnicoDTO tecnicoDTO = new TecnicoDTO(obj);
 		return ResponseEntity.ok().body(tecnicoDTO);
 	}
-	
+
 }
