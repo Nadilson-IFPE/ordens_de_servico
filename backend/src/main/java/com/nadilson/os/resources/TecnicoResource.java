@@ -1,5 +1,8 @@
 package com.nadilson.os.resources;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +34,23 @@ public class TecnicoResource {
 		// Conversão para evitar a falha de segurança:
 		TecnicoDTO tecnicoDTO = new TecnicoDTO(obj);
 		return ResponseEntity.ok().body(tecnicoDTO);
+	}
+
+	@GetMapping
+	public ResponseEntity<List<TecnicoDTO>> findAll() {
+//		List<Tecnico> lista = tecnicoService.findAll();	
+//		List<TecnicoDTO> listaDTO = new ArrayList<>();
+//		
+//		for (Tecnico obj : lista) {
+//			listaDTO.add(new TecnicoDTO(obj));
+//		}
+//		
+//		lista.forEach(obj -> listaDTO.add(new TecnicoDTO()));
+		
+		// A linha abaixo resume em uma única linha todo o código comentado acima
+		List<TecnicoDTO> listaDTO = tecnicoService.findAll().stream().map(obj -> new TecnicoDTO(obj)).collect(Collectors.toList());
+		
+		return ResponseEntity.ok().body(listaDTO);
 	}
 
 }
