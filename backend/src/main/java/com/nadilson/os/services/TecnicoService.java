@@ -39,16 +39,25 @@ public class TecnicoService {
 
 	public Tecnico update(Integer id, @Valid TecnicoDTO objDTO) {
 		Tecnico oldObj = findById(id);
-		
+
 		if (findByCPF(objDTO) != null && findByCPF(objDTO).getId() != id) {
 			throw new DataIntegrityViolationException("CPF já cadastrado na base de dados!");
 		}
-		
+
 		oldObj.setNome(objDTO.getNome());
 		oldObj.setCpf(objDTO.getCpf());
 		oldObj.setTelefone(objDTO.getTelefone());
-		
+
 		return tecnicoRepository.save(oldObj);
+	}
+
+	public void delete(Integer id) {
+		Tecnico obj = findById(id);
+		
+		if (obj.getLista().size() > 0) {
+			throw new DataIntegrityViolationException("Técnico possui ordens de serviço. Não pode ser deletado.");
+		}
+		tecnicoRepository.deleteById(id);
 	}
 
 	private Tecnico findByCPF(TecnicoDTO objDTO) {
