@@ -8,8 +8,10 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nadilson.os.domain.Pessoa;
 import com.nadilson.os.domain.Tecnico;
 import com.nadilson.os.dtos.TecnicoDTO;
+import com.nadilson.os.repositories.PessoaRepository;
 import com.nadilson.os.repositories.TecnicoRepository;
 import com.nadilson.os.services.exceptions.DataIntegrityViolationException;
 import com.nadilson.os.services.exceptions.ObjectNotFoundException;
@@ -19,6 +21,9 @@ public class TecnicoService {
 
 	@Autowired
 	private TecnicoRepository tecnicoRepository;
+	
+	@Autowired
+	private PessoaRepository pessoaRepository;
 
 	public Tecnico findById(Integer id) {
 		Optional<Tecnico> obj = tecnicoRepository.findById(id);
@@ -60,8 +65,8 @@ public class TecnicoService {
 		tecnicoRepository.deleteById(id);
 	}
 
-	private Tecnico findByCPF(TecnicoDTO objDTO) {
-		Tecnico obj = tecnicoRepository.findByCPF(objDTO.getCpf());
+	private Pessoa findByCPF(TecnicoDTO objDTO) {
+		Pessoa obj = pessoaRepository.findByCPF(objDTO.getCpf());
 
 		if (obj != null) {
 			return obj;
