@@ -1,5 +1,6 @@
 package com.nadilson.os.services;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,6 +44,11 @@ public class OSService {
 	public OS create(@Valid OSDTO obj) {
 		return fromDTO(obj);
 	}
+	
+	public OS update(@Valid OSDTO obj) {
+		findById(obj.getId());
+		return fromDTO(obj);
+	}
 
 	private OS fromDTO(OSDTO obj) {
 		OS newObj = new OS();
@@ -56,6 +62,10 @@ public class OSService {
 
 		newObj.setTecnico(tecnico);
 		newObj.setCliente(cliente);
+		
+		if (newObj.getStatus().getCod().equals(2)) {
+			newObj.setDataFechamento(LocalDateTime.now());
+		}
 
 		return osRepository.save(newObj);
 
