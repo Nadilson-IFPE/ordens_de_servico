@@ -3,6 +3,8 @@ package com.nadilson.os.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,21 +29,35 @@ public class TecnicoService {
 	public List<Tecnico> findAll() {
 		return tecnicoRepository.findAll();
 	}
-	
+
 	public Tecnico create(TecnicoDTO objDTO) {
 		if (findByCPF(objDTO) != null) {
 			throw new DataIntegrityViolationException("CPF já cadastado na base de dados!");
 		}
 		return tecnicoRepository.save(new Tecnico(null, objDTO.getNome(), objDTO.getCpf(), objDTO.getTelefone()));
 	}
-	
+
+	public Tecnico update(Integer id, @Valid TecnicoDTO objDTO) {
+		Tecnico oldObj = findById(id);
+		
+		if (findByCPF(objDTO) != null && findByCPF(objDTO).getId() != id) {
+			throw new DataIntegrityViolationException("CPF já cadastrado na base de dados!");
+		}
+		
+		oldObj.setNome(objDTO.getNome());
+		oldObj.setCpf(objDTO.getCpf());
+		oldObj.setTelefone(objDTO.getTelefone());
+		
+		return tecnicoRepository.save(oldObj);
+	}
+
 	private Tecnico findByCPF(TecnicoDTO objDTO) {
 		Tecnico obj = tecnicoRepository.findByCPF(objDTO.getCpf());
-		
+
 		if (obj != null) {
 			return obj;
 		}
-		
+
 		return null;
 	}
 
