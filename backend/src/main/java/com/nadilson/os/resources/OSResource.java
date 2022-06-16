@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,9 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.nadilson.os.dtos.OSDTO;
-import com.nadilson.os.dtos.TecnicoDTO;
 import com.nadilson.os.services.OSService;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping(value = "/os")
 public class OSResource {
@@ -49,10 +50,10 @@ public class OSResource {
 
 		return ResponseEntity.created(uri).build();
 	}
-	
+
 	@PutMapping
 	public ResponseEntity<OSDTO> update(@Valid @RequestBody OSDTO obj) {
-		 obj = new OSDTO(osService.update(obj));
+		obj = new OSDTO(osService.update(obj));
 
 		return ResponseEntity.ok().body(obj);
 	}
