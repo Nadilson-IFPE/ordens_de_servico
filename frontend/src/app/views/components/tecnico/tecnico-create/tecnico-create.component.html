@@ -15,7 +15,12 @@
     <input matInput placeholder="Informe o telefone do técnico..." />
   </mat-form-field>
 
-  <button class="mat-elevation-z8" mat-stroked-button color="accent">
+  <button
+    (click)="create()"
+    class="mat-elevation-z8"
+    mat-stroked-button
+    color="accent"
+  >
     CRIAR
   </button>
 
