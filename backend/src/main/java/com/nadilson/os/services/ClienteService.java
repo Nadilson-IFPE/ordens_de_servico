@@ -37,7 +37,7 @@ public class ClienteService {
 
 	public Cliente create(ClienteDTO objDTO) {
 		if (findByCPF(objDTO) != null) {
-			throw new DataIntegrityViolationException("CPF já cadastado na base de dados!");
+			throw new DataIntegrityViolationException("CPF já cadastrado na base de dados!");
 		}
 		return clienteRepository.save(new Cliente(null, objDTO.getNome(), objDTO.getCpf(), objDTO.getTelefone()));
 	}

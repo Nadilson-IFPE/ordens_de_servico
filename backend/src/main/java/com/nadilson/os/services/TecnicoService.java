@@ -37,7 +37,7 @@ public class TecnicoService {
 
 	public Tecnico create(TecnicoDTO objDTO) {
 		if (findByCPF(objDTO) != null) {
-			throw new DataIntegrityViolationException("CPF já cadastado na base de dados!");
+			throw new DataIntegrityViolationException("CPF já cadastrado na base de dados!");
 		}
 		return tecnicoRepository.save(new Tecnico(null, objDTO.getNome(), objDTO.getCpf(), objDTO.getTelefone()));
 	}
