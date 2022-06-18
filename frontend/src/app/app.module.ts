@@ -25,6 +25,7 @@ import { NavComponent } from "./views/components/template/nav/nav.component";
 import { HomeComponent } from "./views/components/home/home.component";
 import { TecnicoReadComponent } from "./views/components/tecnico/tecnico-read/tecnico-read.component";
 import { MatSortModule } from "@angular/material/sort";
+import { TecnicoCreateComponent } from './views/components/tecnico/tecnico-create/tecnico-create.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { MatSortModule } from "@angular/material/sort";
     NavComponent,
     HomeComponent,
     TecnicoReadComponent,
+    TecnicoCreateComponent,
   ],
   imports: [
     BrowserModule,

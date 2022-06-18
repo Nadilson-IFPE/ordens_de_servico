@@ -4,6 +4,7 @@ import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
 import { Tecnico } from "src/app/models/tecnico";
 import { TecnicoService } from "src/app/services/tecnico.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-tecnico-read",
@@ -19,7 +20,7 @@ export class TecnicoReadComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) ordenar!: MatSort;
 
-  constructor(private service: TecnicoService) {}
+  constructor(private service: TecnicoService, private router: Router) {}
 
   ngAfterViewInit() {
     this.findAll();
@@ -59,5 +60,9 @@ export class TecnicoReadComponent implements AfterViewInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.ordenar;
     });
+  }
+
+  navigateToCreate(): void {
+    this.router.navigate(["/tecnicos/create"]);
   }
 }
