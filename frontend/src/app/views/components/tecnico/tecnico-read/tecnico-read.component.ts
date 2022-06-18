@@ -15,19 +15,46 @@ export class TecnicoReadComponent implements AfterViewInit {
   displayedColumns: string[] = ["id", "nome", "cpf", "telefone"];
   dataSource = new MatTableDataSource<Tecnico>(this.tecnicos);
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
 
   constructor(private service: TecnicoService) {}
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
     this.findAll();
+
+    this.paginator._intl.itemsPerPageLabel = "Itens por página";
+    this.paginator._intl.firstPageLabel = "Página inicial";
+    this.paginator._intl.lastPageLabel = "Última página";
+    this.paginator._intl.previousPageLabel = "Página anterior";
+    this.paginator._intl.nextPageLabel = "Próxima página";
+    this.paginator._intl.getRangeLabel = (
+      page: number,
+      pageSize: number,
+      length: number
+    ) => {
+      if (length === 0 || pageSize === 0) {
+        return `0 de } ${length}`;
+      }
+      if (pageSize >= length) {
+        return `1 de 1`;
+      }
+      length = Math.max(length, 0);
+      const startIndex = page * pageSize;
+
+      startIndex < length
+        ? Math.min(startIndex + pageSize, length)
+        : startIndex + pageSize;
+      return `${startIndex + 1} de ${length}`;
+    };
   }
 
   findAll(): void {
     this.service.findAll().subscribe((resposta) => {
       this.tecnicos = resposta;
-      console.log(this.tecnicos);
+      // Teste:
+      // console.log(this.tecnicos);
+      this.dataSource = new MatTableDataSource<Tecnico>(this.tecnicos);
+      this.dataSource.paginator = this.paginator;
     });
   }
 }
