@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, ViewChild } from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
 import { Tecnico } from "src/app/models/tecnico";
 import { TecnicoService } from "src/app/services/tecnico.service";
@@ -15,7 +16,8 @@ export class TecnicoReadComponent implements AfterViewInit {
   displayedColumns: string[] = ["id", "nome", "cpf", "telefone"];
   dataSource = new MatTableDataSource<Tecnico>(this.tecnicos);
 
-  @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) ordenar!: MatSort;
 
   constructor(private service: TecnicoService) {}
 
@@ -33,9 +35,9 @@ export class TecnicoReadComponent implements AfterViewInit {
       length: number
     ) => {
       if (length === 0 || pageSize === 0) {
-        return `0 de } ${length}`;
+        return `0 de ${length}`;
       }
-      if (pageSize >= length) {
+      if (pageSize == length || pageSize >= length) {
         return `1 de 1`;
       }
       length = Math.max(length, 0);
@@ -55,6 +57,7 @@ export class TecnicoReadComponent implements AfterViewInit {
       // console.log(this.tecnicos);
       this.dataSource = new MatTableDataSource<Tecnico>(this.tecnicos);
       this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.ordenar;
     });
   }
 }
