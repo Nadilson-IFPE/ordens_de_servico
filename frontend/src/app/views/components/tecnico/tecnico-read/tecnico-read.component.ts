@@ -38,7 +38,7 @@ export class TecnicoReadComponent implements AfterViewInit {
       if (length === 0 || pageSize === 0) {
         return `0 de ${length}`;
       }
-      if (pageSize == length || pageSize >= length) {
+      if (pageSize >= length) {
         return `1 de 1`;
       }
       length = Math.max(length, 0);

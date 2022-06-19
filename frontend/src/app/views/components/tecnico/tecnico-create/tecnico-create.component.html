@@ -2,21 +2,49 @@
 <form class="form">
   <mat-form-field class="full-width">
     <mat-label>Nome</mat-label>
-    <input matInput placeholder="Informe o nome do técnico..." />
+    <input
+      [(ngModel)]="tecnico.nome"
+      [formControl]="nome"
+      required
+      name="nome"
+      maxlength="100"
+      matInput
+      placeholder="Informe o nome do técnico..."
+    />
+    <mat-error *ngIf="nome.invalid">{{ errorValidName() }}</mat-error>
   </mat-form-field>
 
   <mat-form-field class="full-width">
     <mat-label>CPF</mat-label>
-    <input matInput placeholder="Informe o CPF do técnico..." />
+    <input
+      [(ngModel)]="tecnico.cpf"
+      [formControl]="cpf"
+      required
+      name="cpf"
+      maxlength="15"
+      matInput
+      placeholder="Informe o CPF do técnico..."
+    />
+    <mat-error *ngIf="cpf.invalid">{{ errorValidCPF() }}</mat-error>
   </mat-form-field>
 
   <mat-form-field class="full-width">
     <mat-label>Telefone</mat-label>
-    <input matInput placeholder="Informe o telefone do técnico..." />
+    <input
+      [(ngModel)]="tecnico.telefone"
+      [formControl]="telefone"
+      required
+      name="telefone"
+      maxlength="18"
+      matInput
+      placeholder="Informe o telefone do técnico..."
+    />
+    <mat-error *ngIf="telefone.invalid">{{ errorValidTelefone() }}</mat-error>
   </mat-form-field>
 
   <button
     (click)="create()"
+    [disabled]="errorValidName() || errorValidCPF() || errorValidTelefone()"
     class="mat-elevation-z8"
     mat-stroked-button
     color="accent"
