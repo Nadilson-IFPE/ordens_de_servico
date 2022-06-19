@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { TecnicoService } from "src/app/services/tecnico.service";
 import { FormControl } from "@angular/forms";
 import { Validators } from "@angular/forms";
@@ -11,6 +11,8 @@ import { Tecnico } from "src/app/models/tecnico";
   styleUrls: ["./tecnico-update.component.css"],
 })
 export class TecnicoUpdateComponent implements OnInit {
+  id_tec = "";
+
   tecnico: Tecnico = {
     id: "",
     nome: "",
@@ -22,9 +24,41 @@ export class TecnicoUpdateComponent implements OnInit {
   cpf = new FormControl("", [Validators.minLength(11)]);
   telefone = new FormControl("", [Validators.minLength(11)]);
 
-  constructor(private router: Router, private service: TecnicoService) {}
+  constructor(
+    private router: Router,
+    private service: TecnicoService,
+    private route: ActivatedRoute
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.id_tec = this.route.snapshot.paramMap.get("id")!;
+    this.findById();
+  }
+
+  update(): void {
+    this.service.update(this.tecnico).subscribe(
+      (resposta) => {
+        this.router.navigate(["tecnicos"]);
+        this.service.message("Técnico atualizado com sucesso!");
+      },
+      (err) => {
+        if (err.error.error.match("já cadastrado")) {
+          this.service.message(err.error.error);
+        } else if (
+          err.error.errors[0].message ===
+          "número do registro de contribuinte individual brasileiro (CPF) inválido"
+        ) {
+          this.service.message("CPF inválido!");
+        }
+      }
+    );
+  }
+
+  findById(): void {
+    this.service.findById(this.id_tec).subscribe((resposta) => {
+      this.tecnico = resposta;
+    });
+  }
 
   cancel(): void {
     this.router.navigate(["tecnicos"]);

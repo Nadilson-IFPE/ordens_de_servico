@@ -43,6 +43,7 @@
   </mat-form-field>
 
   <button
+    (click)="update()"
     [disabled]="errorValidName() || errorValidCPF() || errorValidTelefone()"
     class="mat-elevation-z8"
     mat-stroked-button
