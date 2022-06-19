@@ -9,7 +9,7 @@
       name="nome"
       maxlength="100"
       matInput
-      placeholder="Informe o nome do técnico..."
+      placeholder="Informe o nome do cliente..."
     />
     <mat-error *ngIf="nome.invalid">{{ errorValidName() }}</mat-error>
   </mat-form-field>
@@ -23,7 +23,7 @@
       name="cpf"
       maxlength="15"
       matInput
-      placeholder="Informe o CPF do técnico..."
+      placeholder="Informe o CPF do cliente..."
     />
     <mat-error *ngIf="cpf.invalid">{{ errorValidCPF() }}</mat-error>
   </mat-form-field>
@@ -37,7 +37,7 @@
       name="telefone"
       maxlength="18"
       matInput
-      placeholder="Informe o telefone do técnico..."
+      placeholder="Informe o telefone do cliente..."
     />
     <mat-error *ngIf="telefone.invalid">{{ errorValidTelefone() }}</mat-error>
   </mat-form-field>
