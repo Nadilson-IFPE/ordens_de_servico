@@ -69,9 +69,9 @@ export class OsReadComponent implements AfterViewInit {
 
   findAll(): void {
     this.service.findAll().subscribe((resposta) => {
+      this.listaDeOS = resposta;
       this.listarTecnico();
       this.listarCliente();
-      this.listaDeOS = resposta;
       this.dataSource = new MatTableDataSource<OS>(this.listaDeOS);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.ordenar;
