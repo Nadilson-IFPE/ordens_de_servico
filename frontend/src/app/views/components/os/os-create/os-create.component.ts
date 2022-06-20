@@ -45,6 +45,10 @@ export class OsCreateComponent implements OnInit {
     });
   }
 
+  cancel(): void {
+    this.router.navigate(["os"]);
+  }
+
   listarTecnicos(): void {
     this.tecnicoService.findAll().subscribe((resposta) => {
       this.tecnicos = resposta;
