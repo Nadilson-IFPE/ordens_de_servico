@@ -21,7 +21,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.nadilson.os.dtos.OSDTO;
 import com.nadilson.os.services.OSService;
 
-@CrossOrigin("*")
+//@CrossOrigin("*")
 @RestController
 @RequestMapping(value = "/os")
 public class OSResource {

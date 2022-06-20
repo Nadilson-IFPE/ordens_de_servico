@@ -23,7 +23,7 @@ import com.nadilson.os.domain.Tecnico;
 import com.nadilson.os.dtos.TecnicoDTO;
 import com.nadilson.os.services.TecnicoService;
 
-@CrossOrigin("*")
+//@CrossOrigin("*")
 @RestController
 @RequestMapping(value = "/tecnicos")
 public class TecnicoResource {

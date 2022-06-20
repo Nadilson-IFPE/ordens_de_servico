@@ -23,7 +23,7 @@ import com.nadilson.os.domain.Cliente;
 import com.nadilson.os.dtos.ClienteDTO;
 import com.nadilson.os.services.ClienteService;
 
-@CrossOrigin("*")
+//@CrossOrigin("*")
 @RestController
 @RequestMapping(value = "/clientes")
 public class ClienteResource {
