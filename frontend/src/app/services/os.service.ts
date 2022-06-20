@@ -29,7 +29,7 @@ export class OsService {
   }
 
   update(os: OS): Observable<OS> {
-    const url = `${this.baseURL}/os/${os.id}`;
+    const url = `${this.baseURL}/os`;
     return this.http.put<OS>(url, os);
   }
 
