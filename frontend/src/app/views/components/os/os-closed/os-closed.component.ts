@@ -1,20 +1,19 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
-import { AfterViewInit } from "@angular/core";
-import { MatTableDataSource } from "@angular/material/table";
-import { OS } from "./../../../../models/os";
+import { AfterViewInit, Component, OnInit, ViewChild } from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
-import { OsService } from "./../../../../services/os.service";
+import { MatTableDataSource } from "@angular/material/table";
 import { Router } from "@angular/router";
+import { OS } from "src/app/models/os";
+import { ClienteService } from "src/app/services/cliente.service";
+import { OsService } from "src/app/services/os.service";
 import { TecnicoService } from "src/app/services/tecnico.service";
-import { ClienteService } from "./../../../../services/cliente.service";
 
 @Component({
-  selector: "app-os-read",
-  templateUrl: "./os-read.component.html",
-  styleUrls: ["./os-read.component.css"],
+  selector: "app-os-closed",
+  templateUrl: "./os-closed.component.html",
+  styleUrls: ["./os-closed.component.css"],
 })
-export class OsReadComponent implements AfterViewInit {
+export class OsClosedComponent implements AfterViewInit {
   listaDeOS: OS[] = [];
 
   displayedColumns: string[] = [
@@ -70,7 +69,7 @@ export class OsReadComponent implements AfterViewInit {
   findAll(): void {
     this.service.findAll().subscribe((resposta) => {
       resposta.forEach((x) => {
-        if (x.status != "ENCERRADO") {
+        if (x.status == "ENCERRADO") {
           this.listaDeOS.push(x);
         }
       });
@@ -80,10 +79,6 @@ export class OsReadComponent implements AfterViewInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.ordenar;
     });
-  }
-
-  navigateToCreate(): void {
-    this.router.navigate(["/os/create"]);
   }
 
   listarTecnico(): void {
