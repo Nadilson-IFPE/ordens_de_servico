@@ -53,7 +53,7 @@ public class OSService {
 	private OS fromDTO(OSDTO obj) {
 		OS newObj = new OS();
 		newObj.setId(obj.getId());
-		newObj.setObservacoes(obj.getObservacao());
+		newObj.setObservacoes(obj.getObservacoes());
 		newObj.setPrioridade(Prioridade.toEnum(obj.getPrioridade().getCod()));
 		newObj.setStatus(Status.toEnum(obj.getStatus().getCod()));
 
